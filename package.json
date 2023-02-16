@@ -1,0 +1,24 @@
+{
+  "name": "hiltontest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjj28810/HiltonTest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hjj28810/HiltonTest/issues"
+  },
+  "homepage": "https://github.com/hjj28810/HiltonTest#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "couchbase": "^4.2.1",
+    "express": "^4.18.2"
+  }
+}

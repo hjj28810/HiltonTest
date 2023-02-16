@@ -1,0 +1,8 @@
+{
+    "couchbase_conn": {
+        "host": "couchbase://localhost",
+        "port": 8091,
+        "username": "Administrator",
+        "password": "888666"
+    }
+}
