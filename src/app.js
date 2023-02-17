@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-
+require('express-async-errors');
 // app.use('/files', express.static('./files'))
 //对body-parser进行配置
 const bodyParser = require('body-parser');
@@ -13,7 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 const reservationRouter = require('./router/reservation.js')
 
-app.use('/api', reservationRouter)
+app.use('/api/v1', reservationRouter)
+
+app.use((err, req, res, next) => {
+    return res.json({ code: 500, message: "服务器异常:" + err.stack });
+});
+
 
 app.listen(8081, () => {
     console.log('http://127.0.0.1 listening on port 8081')
