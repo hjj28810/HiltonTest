@@ -1,25 +1,17 @@
 const express = require('express')
 const router = express.Router()
+const guestService = require('../service/guest')
 
-router.post('/guest', (req, res) => {
-    console.log(req.body)
-    res.send('guest add.')
+router.post('/guests', async (req, res) => {
+    res.send({ code: 200, msg: "新增成功", data: await guestService.addGuestAsync(req.body) })
 })
 
-router.put('/guest/:id', (req, res) => {
-    console.log(req.body)
-    res.send('guest update.')
+router.get('/guests/:id', async (req, res) => {
+    res.send({ code: 200, msg: "查询成功", data: await guestService.getGuestAsync(req.params.id) })
 })
 
-router.get('/guest/:id', (req, res) => {
-    console.log(req.body)
-    res.send('guest get.')
-})
-
-router.delete('/guest/:id', (req, res) => {
-    console.log(req.body)
-    res.send('guest delete.')
-})
+// router.get('/guests', async (req, res) => {
+//     res.send({ code: 200, msg: "查询成功", data: await guestService.getGuestsAsync(req.query) })
+// })
 
 module.exports = router
-

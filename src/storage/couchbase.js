@@ -11,10 +11,12 @@ var _clusterAsync = async function () {
         // configProfile: 'wanDevelopment',
     })
 }
+
 var _bucketAsync = async function (bucketName) {
     var cluster = await _clusterAsync()
     return cluster.bucket(bucketName)
 }
+
 var _defaultCollectionAsync = async function (bucketName) {
     var bucket = await _bucketAsync(bucketName)
     return bucket.defaultCollection()
@@ -28,12 +30,17 @@ var _getByIdAsync = async function (bucketName, id) {
 
 var _getListAsync = async function (bucketName, whereSql, parameters) {
     var cluster = await _clusterAsync()
-    return await cluster.query(`SELECT * FROM ${bucketName} WHERE 1 = 1${whereSql};`, { parameters })
+    return await cluster.query(`SELECT * FROM \`${bucketName}\` WHERE 1 = 1${whereSql};`, { parameters })
 }
 
-var _addAsync = async function (bucketName, id, data) {
+var _existsAsync = async function (bucketName, id) {
     var collection = await _defaultCollectionAsync(bucketName)
-    return await collection.insert(id, data)
+    return (await collection.exists(id)).exists
+}
+
+var _addAsync = async function (bucketName, id, data, options) {
+    var collection = await _defaultCollectionAsync(bucketName)
+    return await collection.insert(id, data, options)
 }
 
 var _updateAsync = async function (bucketName, id, data) {
@@ -50,4 +57,5 @@ module.exports
     addAsync: _addAsync,
     getListAsync: _getListAsync,
     updateAsync: _updateAsync,
+    existsAsync: _existsAsync
 }
