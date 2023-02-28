@@ -1,4 +1,4 @@
-# hilton-view-test
+# client
 
 ## Project setup
 ```
