@@ -18,6 +18,15 @@ class ReservationService {
             whereSql += " AND \`guest_contact\` = $guestContact"
             parameters.guestContact = data.guest_contact
         }
+        if (data.started_at && data.ended_at) {
+            var start_time = Math.floor(new Date(data.started_at).getTime() / 1000)
+            var end_time = Math.floor(new Date(data.ended_at).getTime() / 1000)
+            if (start_time && end_time) {
+                whereSql += " AND expected_arrival_time >= $startTime AND expected_arrival_time <= $endTime"
+                parameters.startTime = start_time
+                parameters.endTime = end_time
+            }
+        }
         if (data.guest_id) {
             whereSql += " AND \`guest_id\` = $guestId"
             parameters.guestId = data.guest_id
@@ -29,6 +38,8 @@ class ReservationService {
     async addReservationAsync(data) {
         data.reservation_id = uuidv4()
         data.reservation_status = 0
+        data.created_at = Math.floor(new Date().getTime() / 1000)
+        data.updated_at = 0
         await couchbase.addAsync(bucketName, data.reservation_id, data)
         return data.reservation_id
     }
@@ -42,6 +53,7 @@ class ReservationService {
             reservation.expected_arrival_time = data.expected_arrival_time
             reservation.reservation_status = data.reservation_status
             reservation.remark = data.remark
+            reservation.updated_at = Math.floor(new Date().getTime() / 1000)
             await couchbase.updateAsync(bucketName, data.reservation_id, reservation)
             return data.reservation_id
         }

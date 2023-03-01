@@ -33,21 +33,15 @@ const ReservationStatusTypes = new GraphQLEnumType({
         GuestReserved: {
             value: 0,
         },
-        GuestUpdated: {
+        GuestCancelled: {
             value: 1,
         },
-        // 2: {
-        //     value: "guest cancelled",
-        // },
-        // 10: {
-        //     value: "emp confirmed",
-        // },
-        // 11: {
-        //     value: "emp updated",
-        // },
-        // 12: {
-        //     value: "emp cancelled",
-        // },
+        EmpConfirmed: {
+            value: 10,
+        },
+        EmpCancelled: {
+            value: 11,
+        },
     }
 })
 

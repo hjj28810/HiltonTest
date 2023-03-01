@@ -4,11 +4,13 @@ require('express-async-errors');
 const util = require('./util/index')
 const Schema = require('./schema');
 const gqlHTTP = require('express-graphql')
+
+var cors = require('cors')
+app.use(cors())
+
 // app.use('/files', express.static('./files'))
-//对body-parser进行配置
 
 var filter = async (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     // if (req.url === '/graphql') {
     //     next()
     //     return

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/hjj28810/HiltonTest#readme",
   "dependencies": {
     "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
     "couchbase": "^4.2.1",
     "crypto-js": "^4.1.1",
     "express": "^4.18.2",
