@@ -7,23 +7,43 @@ Vue.use(Router)
 export const constantRouterMap = [
   {
     path: '/',
-    component: () => import('@/views/welcome')
+    redirect: "/welcome",
+    component: () => import('@/views/layout'),
+    children: [
+      {
+        path: '/welcome',
+        name: 'welcome',
+        component: () => import('@/views/welcome')
+      },
+      {
+        name: "guestLogin",
+        path: '/guestLogin',
+        component: () => import('@/views/guestLogin')
+      },
+      {
+        name: "mainView",
+        path: '/mainView',
+        component: () => import('@/views/mainView')
+      },
+    ]
   },
-  {
-    name: "guestLogin",
-    path: '/guestLogin',
-    component: () => import('@/views/guestLogin')
-  },
-  {
-    name: "mainView",
-    path: '/mainView',
-    component: () => import('@/views/mainView')
-  },
+
 ]
 
-const router = new Router({
-  routes: constantRouterMap
-})
+const createRouter = () =>
+  new Router({
+    // base: "/admin",
+    // mode: "history", // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRouterMap
+  });
+
+const router = createRouter();
+
+export function resetRouter() {
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // reset router
+}
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {

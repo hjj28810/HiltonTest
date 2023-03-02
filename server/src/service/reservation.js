@@ -45,7 +45,7 @@ class ReservationService {
     }
 
     async updateReservationAsync(data) {
-        var reservation = await this.getReservation(data.reservation_id)
+        var reservation = await this.getReservationAsync(data.reservation_id)
         if (reservation !== null) {
             reservation.guest_name = data.guest_name
             reservation.guest_contact = data.guest_contact

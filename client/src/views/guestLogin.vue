@@ -1,9 +1,14 @@
 <template>
   <div>
     <el-container>
+      <el-header>
+        <router-link to style="float: left;">
+          <el-button type="text" @click="$router.go(-1)" style="width: 60px;">＜返回</el-button>
+        </router-link>
+      </el-header>
       <el-main>
         <el-row :gutter="20">
-          <el-input v-model="mobile" placeholder="phone number" clearable></el-input>
+          <el-input v-model="mobile" placeholder="手机号码" clearable></el-input>
         </el-row>
         <el-row :gutter="20">
           <el-button type="success" @click.native.prevent="handleLogin">Logon</el-button>
@@ -35,7 +40,8 @@ export default {
       }
       getGuest(this.mobile).then(data => {
         if (data.guest) {
-          this.$router.push({ name: "mainView", params: { guestId: this.mobile } })
+          localStorage.setItem('guest', this.mobile)
+          this.$router.push({ name: "mainView" })
         } else {
           this.$confirm(`无此用户，是否注册新用户?`, "提示", {
             confirmButtonText: "确定",
@@ -48,7 +54,8 @@ export default {
                 message: "注册成功",
                 type: "success",
               });
-              this.$router.push({ name: "mainView", params: { guestId: this.mobile } })
+              localStorage.setItem('guest', this.mobile)
+              this.$router.push({ name: "mainView" })
             })
           });
         }

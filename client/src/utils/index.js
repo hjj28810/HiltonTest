@@ -137,11 +137,9 @@ export function checkTel(phone) {
 
 export function checkContact(contact) {
     var result = checkPhone(contact);
-
     if (result) {
         return result;
     }
     result = checkTel(contact);
-    console.log('check:' + contact + result);
     return result;
 }

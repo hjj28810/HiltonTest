@@ -9,41 +9,41 @@ const { GraphQLObjectType,
 const guestService = require('../service/guest')
 const reservationService = require('../service/reservation')
 
-const TableSizeTypes = new GraphQLEnumType({
-    name: "TableSizeEnum",
-    values: {
-        TwoPerson: {
-            value: 0,
-        },
-        FourPerson: {
-            value: 1,
-        },
-        // 2: {
-        //     value: "6 Person",
-        // },
-        // 3: {
-        //     value: "More than 8 Person",
-        // },
-    }
-})
+// const TableSizeTypes = new GraphQLEnumType({
+//     name: "TableSizeEnum",
+//     values: {
+//         TwoPerson: {
+//             value: 0,
+//         },
+//         FourPerson: {
+//             value: 1,
+//         },
+//         // 2: {
+//         //     value: "6 Person",
+//         // },
+//         // 3: {
+//         //     value: "More than 8 Person",
+//         // },
+//     }
+// })
 
-const ReservationStatusTypes = new GraphQLEnumType({
-    name: "ReservationStatusEnum",
-    values: {
-        GuestReserved: {
-            value: 0,
-        },
-        GuestCancelled: {
-            value: 1,
-        },
-        EmpConfirmed: {
-            value: 10,
-        },
-        EmpCancelled: {
-            value: 11,
-        },
-    }
-})
+// const ReservationStatusTypes = new GraphQLEnumType({
+//     name: "ReservationStatusEnum",
+//     values: {
+//         GuestReserved: {
+//             value: 0,
+//         },
+//         GuestCancelled: {
+//             value: 1,
+//         },
+//         EmpConfirmed: {
+//             value: 10,
+//         },
+//         EmpCancelled: {
+//             value: 11,
+//         },
+//     }
+// })
 
 const Reservation = new GraphQLObjectType({
     name: 'Reservation',
@@ -62,13 +62,13 @@ const Reservation = new GraphQLObjectType({
             type: GraphQLString
         },
         table_size: {
-            type: TableSizeTypes
+            type: GraphQLInt
         },
         expected_arrival_time: {
             type: GraphQLInt
         },
         reservation_status: {
-            type: ReservationStatusTypes
+            type: GraphQLInt
         },
         remark: {
             type: GraphQLString

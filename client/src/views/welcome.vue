@@ -27,7 +27,8 @@ export default {
             this.$router.push('/guestLogin')
         },
         handleEmployeeLogin() {
-            this.$router.push({ name: "mainView", params: { guestId: 'Employee' } })
+            localStorage.setItem('guest', 'Employee')
+            this.$router.push({ name: "mainView" })
         }
     }
 };
