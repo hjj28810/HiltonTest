@@ -1,6 +1,7 @@
 # Hilton Test (Sample Reservation System)
 ## 项目功能介绍
 一个简单的预订系统，可以用guest或者employee登录，guest根据选择日历来查看已预订的日程（查看自己所有的和所选日期所有的预订），也可新增修改（状态为来宾预订或取消）预订，employee可以查看所有guest预订（查看所有来宾和所选日期所有的预订），并修改（状态为餐厅确认或取消）预订  
+环境要求: nodejs 14
 client  运行cmd -- npm run serve -- host: http://localhost:8080  
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
 couchbase host: http://localhost:8091 username: Administrator password: 888666
