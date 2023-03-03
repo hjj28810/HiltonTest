@@ -43,13 +43,18 @@
                 </el-calendar></el-tab-pane>
             <el-tab-pane :label="tabName" name="all">
                 <el-table :data="reservations" style="width: 100%" @row-click="selectedReservation">
-                    <el-table-column prop="expectedArrivalTime" label="到店时间" width="180">
+                    <el-table-column prop="expectedArrivalTime" width="180">
+                        <template slot="header" slot-scope="scope">
+                            <el-input v-model="search" size="mini" placeholder="到店时间" style="width: 130px;" />
+                        </template>
                     </el-table-column>
                     <el-table-column prop="guest_name" label="姓名" width="90">
                     </el-table-column>
                     <el-table-column prop="guest_contact" label="电话">
                     </el-table-column>
-                    <el-table-column label="状态" width="90" align="center">
+                    <el-table-column label="状态" width="90" align="center"
+                        :filters="[{ text: '来宾预定', value: 0 }, { text: '来宾取消', value: 1 }, { text: '餐厅确认', value: 10 }, { text: '餐厅取消', value: 11 }]"
+                        :filter-method="filterStatusHandler" filter-placement="bottom-end">
                         <template slot-scope="scope">
                             <el-tag :type="statusOptions.find(x => scope.row.reservation_status === x.key).tagTye">{{
                                 statusOptions.find(x => scope.row.reservation_status === x.key).value
@@ -132,11 +137,20 @@ export default {
     created() {
         this.handleInit()
     },
+    watch: {
+        search: {
+            handler: function (val, oldVal) {
+                this.reservations = this.reservationList.filter(x => { return x.expectedArrivalDate.includes(val) })
+            },
+            immediate: true,
+        },
+    },
     data() {
         return {
             statusOptions,
             sizeOptions,
             reservations: [],
+            reservationList: [],
             allReservations: [],
             dataValue: new Date(),
             guestId: "",
@@ -148,6 +162,7 @@ export default {
                 edit: "修改",
                 create: "新增",
             },
+            search: "",
             dialogStatus: "create",
             dialogFormVisible: false,
             btnLoading: false,
@@ -315,8 +330,11 @@ export default {
                 var startAt = new Date(this.tabName + ' 00:00:00').getTime() / 1000
                 var endAt = new Date(this.tabName + ' 23:59:59').getTime() / 1000
                 this.reservations = this.allReservations.filter(x => { return x.expected_arrival_time >= startAt && x.expected_arrival_time <= endAt })
-            } else
+                this.reservationList = this.reservations
+            } else {
                 this.reservations = this.allReservations
+                this.reservationList = this.reservations
+            }
         },
         mapReservation(data) {
             return data.map((item) => {
@@ -399,11 +417,13 @@ export default {
             this.temp.remark = row.remark
             this.temp.arrival_time = new Date(row.expectedArrivalTime)
             this.temp.reservation_status = row.reservation_status
-            console.log(this.temp)
             if ((this.temp.reservation_status === 11 && this.guestId !== 'Employee') || (this.temp.reservation_status === 1 && this.guestId === 'Employee'))
                 this.formDisabled = true
             else
                 this.formDisabled = false
+        },
+        filterStatusHandler(value, row) {
+            return row.reservation_status === value;
         }
     }
 };

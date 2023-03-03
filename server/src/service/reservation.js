@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
-const couchbase = require('../storage/couchbase')
+const couchbase = require('../storage/couchbase');
+const log = require('../util/log');
 
 const bucketName = "reservation"
 

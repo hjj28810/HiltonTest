@@ -7,18 +7,13 @@ Vue.use(Router)
 export const constantRouterMap = [
   {
     path: '/',
-    redirect: "/welcome",
+    redirect: "/login",
     component: () => import('@/views/layout'),
     children: [
       {
-        path: '/welcome',
-        name: 'welcome',
-        component: () => import('@/views/welcome')
-      },
-      {
-        name: "guestLogin",
-        path: '/guestLogin',
-        component: () => import('@/views/guestLogin')
+        name: "login",
+        path: '/login',
+        component: () => import('@/views/login')
       },
       {
         name: "mainView",

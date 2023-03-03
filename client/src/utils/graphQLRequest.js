@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getUUID } from "./index";
+var cryptoJS = require("crypto-js");
 // create an axios instance
 const service = axios.create({
     baseURL: "http://127.0.0.1:8081/graphql?", // url = base url + request url
@@ -6,6 +8,29 @@ const service = axios.create({
     timeout: 58000, // request timeout
     method: "post"
 });
+
+service.interceptors.request.use(
+    config => {
+        // do something before request is sent
+        // config.headers["Token"] = getToken();
+        var nonce = getUUID();
+        var curTime = Math.floor(new Date().getTime() / 1000);
+
+        config.headers["Nonce"] = nonce;
+        config.headers["Content-Type"] = "application/json";
+        config.headers["CurTime"] = curTime;
+        config.headers["CheckSum"] = cryptoJS
+            .SHA1(`6f2ad63f0ef2${nonce}${curTime}`)
+            .toString(cryptoJS.enc.Hex);
+        return config;
+    },
+    error => {
+        // do something with request error
+        console.log(error); // for debug
+        return Promise.reject(error);
+    }
+);
+
 service.interceptors.response.use(
     response => {
         if (response.status === 200) {

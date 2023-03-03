@@ -4,7 +4,7 @@ require('express-async-errors');
 const util = require('./util/index')
 const Schema = require('./schema');
 const gqlHTTP = require('express-graphql')
-
+const log = require('./util/log')
 var cors = require('cors')
 app.use(cors())
 
@@ -15,16 +15,19 @@ var filter = async (req, res, next) => {
     //     next()
     //     return
     // }
-    // var isCheck = await util.checkSumAsync(req.get('nonce'), req.get('curTime'), req.get('checkSum'))
-    // if (!isCheck)
-    //     return res.json({ code: 500, message: "验签失败" });
-    // else
-    next()
+    var isCheck = await util.checkSumAsync(req.get('nonce'), req.get('curTime'), req.get('checkSum'))
+    if (!isCheck)
+        return res.json({ code: 500, message: "验签失败" });
+    else
+        next()
 }
 app.use(filter);
 
 const loggingMiddleware = (req, res, next) => {
-    console.log('ip:', req.ip);
+    log.infoLog(req.url)
+    log.infoLog(req.params)
+    log.infoLog(req.query)
+    log.infoLog(req.body)
     next();
 }
 app.use(loggingMiddleware);
@@ -48,6 +51,7 @@ app.use('/graphql', gqlHTTP.graphqlHTTP({
 }));
 
 app.use((err, req, res, next) => {
+    log.errorLog(err)
     return res.json({ code: 500, message: "服务器异常:" + err });
 });
 
@@ -56,3 +60,4 @@ app.listen(8081, () => {
     console.log('http://127.0.0.1 listening on port 8081')
 })
 
+module.exports = app;

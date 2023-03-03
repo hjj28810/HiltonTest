@@ -1,17 +1,21 @@
 <template>
   <div>
     <el-container>
-      <el-header>
-        <router-link to style="float: left;">
-          <el-button type="text" @click="$router.go(-1)" style="width: 60px;">＜返回</el-button>
-        </router-link>
-      </el-header>
       <el-main>
         <el-row :gutter="20">
           <el-input v-model="mobile" placeholder="手机号码" clearable></el-input>
         </el-row>
         <el-row :gutter="20">
-          <el-button type="success" @click.native.prevent="handleLogin">Logon</el-button>
+          <el-button type="primary" @click.native.prevent="handleGuestLogin">Guest Logon</el-button>
+        </el-row>
+        <el-row :gutter="20">
+
+        </el-row>
+        <el-row :gutter="20">
+          <p>OR</p>
+        </el-row>
+        <el-row :gutter="20">
+          <el-button type="success" @click.native.prevent="handleEmployeeLogin">Employee Logon</el-button>
         </el-row>
       </el-main>
     </el-container>
@@ -33,7 +37,7 @@ export default {
     }
   },
   methods: {
-    handleLogin() {
+    handleGuestLogin() {
       if (!checkPhone(this.mobile)) {
         this.$message.error("无效的手机号码！");
         return
@@ -61,6 +65,10 @@ export default {
         }
       })
     },
+    handleEmployeeLogin() {
+      localStorage.setItem('guest', 'Employee')
+      this.$router.push({ name: "mainView" })
+    }
   }
 };
 </script>
@@ -69,11 +77,11 @@ export default {
 <style scoped>
 .el-button {
   width: 200px;
-  margin-top: 15px;
 }
 
 .el-input {
   width: 200px;
+  margin-bottom: 15px;
 }
 
 .el-main {

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Message } from "element-ui";
 import { getUUID } from "./index";
 import router from '@/router'
+var cryptoJS = require("crypto-js");
 // create an axios instance
 const service = axios.create({
     baseURL: "http://127.0.0.1:8081/api/v1", // url = base url + request url
@@ -17,7 +18,6 @@ service.interceptors.request.use(
         // config.headers["Token"] = getToken();
         var nonce = getUUID();
         var curTime = Math.floor(new Date().getTime() / 1000);
-        var cryptoJS = require("crypto-js");
         config.headers["Nonce"] = nonce;
         config.headers["Content-Type"] = "application/json";
         config.headers["CurTime"] = curTime;
@@ -38,27 +38,27 @@ service.interceptors.response.use(
     response => {
         const res = response.data;
 
-        if (res.code >= 200 && res.code < 400) {
-            // var token = response.headers["token"];
-            // if (token) {
-            //     setToken(token);
-            // }
+        // if (res.code >= 200 && res.code < 400) {
+        //     var token = response.headers["token"];
+        //     if (token) {
+        //         setToken(token);
+        //     }
+        // }
 
-        }
-        if (res.code === 310) {
-            Message({
-                message: "没有数据权限",
-                type: "warning",
-                duration: 5 * 1000
-            });
-            router.go(-1);
-        }
+        // if (res.code === 310) {
+        //     Message({
+        //         message: "没有数据权限",
+        //         type: "warning",
+        //         duration: 5 * 1000
+        //     });
+        //     router.go(-1);
+        // }
         if (res.code >= 200 && res.code < 300) { return res.data; }
 
-        if (res.code === 401) {
-            removeToken();
-            router.push({ path: "/" });
-        }
+        // if (res.code === 401) {
+        //     removeToken();
+        //     router.push({ path: "/" });
+        // }
         // if the custom code is not 20000, it is judged as an error.
         if (res.code > 401 || res.code === 400) {
             Message({
