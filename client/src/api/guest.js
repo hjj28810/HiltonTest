@@ -23,10 +23,10 @@ export function getGuest(guestId) {
     });
 }
 
-export function addGuest(data) {
+export function login(id) {
     return request({
-        url: "/guests",
+        url: "/login",
         method: "POST",
-        data
+        data: { id }
     });
 }

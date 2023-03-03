@@ -260,7 +260,7 @@ export default {
     },
     methods: {
         handleInit() {
-            this.guestId = localStorage.getItem('guest')
+            this.guestId = localStorage.getItem('user')
             if (!this.guestId) {
                 return
             }

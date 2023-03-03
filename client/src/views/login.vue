@@ -6,7 +6,7 @@
           <el-input v-model="mobile" placeholder="手机号码" clearable></el-input>
         </el-row>
         <el-row :gutter="20">
-          <el-button type="primary" @click.native.prevent="handleGuestLogin">Guest Logon</el-button>
+          <el-button type="primary" @click.native.prevent="handleLogin">Guest Logon</el-button>
         </el-row>
         <el-row :gutter="20">
 
@@ -15,7 +15,7 @@
           <p>OR</p>
         </el-row>
         <el-row :gutter="20">
-          <el-button type="success" @click.native.prevent="handleEmployeeLogin">Employee Logon</el-button>
+          <el-button type="success" @click.native.prevent="handleLogin('Employee')">Employee Logon</el-button>
         </el-row>
       </el-main>
     </el-container>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getGuest, addGuest } from "@/api/guest";
+import { login } from "@/api/guest";
 import { checkPhone } from "@/utils/index";
 
 export default {
@@ -37,38 +37,25 @@ export default {
     }
   },
   methods: {
-    handleGuestLogin() {
-      if (!checkPhone(this.mobile)) {
-        this.$message.error("无效的手机号码！");
-        return
+    handleLogin(type) {
+      var id = this.mobile
+      if (type) {
+        id = 'Employee'
+      } else {
+        if (!checkPhone(id)) {
+          this.$message.error("无效的手机号码！");
+          return
+        }
       }
-      getGuest(this.mobile).then(data => {
-        if (data.guest) {
-          localStorage.setItem('guest', this.mobile)
+      login(id).then(data => {
+        console.log(data)
+        if (data.token) {
+          localStorage.setItem('user', id)
+          localStorage.setItem('token', data.token)
           this.$router.push({ name: "mainView" })
-        } else {
-          this.$confirm(`无此用户，是否注册新用户?`, "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "info",
-          }).then(() => {
-            var newGuest = { name: "来宾", id: this.mobile }
-            addGuest(newGuest).then(() => {
-              this.$message({
-                message: "注册成功",
-                type: "success",
-              });
-              localStorage.setItem('guest', this.mobile)
-              this.$router.push({ name: "mainView" })
-            })
-          });
         }
       })
     },
-    handleEmployeeLogin() {
-      localStorage.setItem('guest', 'Employee')
-      this.$router.push({ name: "mainView" })
-    }
   }
 };
 </script>

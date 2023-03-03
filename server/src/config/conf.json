@@ -5,5 +5,6 @@
         "username": "Administrator",
         "password": "888666"
     },
-    "checkSumKey": "6f2ad63f0ef2"
+    "checkSumKey": "6f2ad63f0ef2",
+    "jwtSecret": "lam12138"
 }

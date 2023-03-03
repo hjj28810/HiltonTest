@@ -15,7 +15,6 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         // do something before request is sent
-        // config.headers["Token"] = getToken();
         var nonce = getUUID();
         var curTime = Math.floor(new Date().getTime() / 1000);
         config.headers["Nonce"] = nonce;
@@ -24,6 +23,8 @@ service.interceptors.request.use(
         config.headers["CheckSum"] = cryptoJS
             .SHA1(`6f2ad63f0ef2${nonce}${curTime}`)
             .toString(cryptoJS.enc.Hex);
+        config.headers["Authorization"] = localStorage.getItem('token')
+
         return config;
     },
     error => {
