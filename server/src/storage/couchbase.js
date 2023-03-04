@@ -5,6 +5,7 @@ var _clusterAsync = async function () {
     return await couchbase.connect(conf.couchbase_conn.host, {
         username: conf.couchbase_conn.username,
         password: conf.couchbase_conn.password,
+        configProfile: 'wanDevelopment',
     })
 }
 

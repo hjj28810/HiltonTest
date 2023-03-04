@@ -1,9 +1,8 @@
 {
     "couchbase_conn": {
-        "host": "couchbase://localhost",
-        "port": 8091,
-        "username": "Administrator",
-        "password": "888666"
+        "host": "couchbases://cb.4okihh3fqkurvdmu.cloud.couchbase.com",
+        "username": "admin",
+        "password": "Password@1"
     },
     "checkSumKey": "6f2ad63f0ef2",
     "jwtSecret": "lam12138"
