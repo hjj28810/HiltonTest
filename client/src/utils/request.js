@@ -38,32 +38,15 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         const res = response.data;
-
-        // if (res.code >= 200 && res.code < 400) {
-        //     var token = response.headers["token"];
-        //     if (token) {
-        //         setToken(token);
-        //     }
-        // }
-
-        // if (res.code === 310) {
-        //     Message({
-        //         message: "没有数据权限",
-        //         type: "warning",
-        //         duration: 5 * 1000
-        //     });
-        //     router.go(-1);
-        // }
         if (res.code >= 200 && res.code < 300) { return res.data; }
 
-        // if (res.code === 401) {
-        //     removeToken();
-        //     router.push({ path: "/" });
-        // }
-        // if the custom code is not 20000, it is judged as an error.
-        if (res.code > 401 || res.code === 400) {
+        if (res.code >= 400) {
+            if (res.code === 401) {
+                router.go(-1)
+            }
+
             Message({
-                message: res.msg || "Error",
+                message: res.message || "Error",
                 type: "error",
                 duration: 5 * 1000
             });

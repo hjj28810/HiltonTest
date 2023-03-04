@@ -271,7 +271,7 @@ export default {
                 this.statusOptions[2].disabled = true
                 this.statusOptions[3].disabled = true
                 getGuest(this.guestId).then(data => {
-                    if (data.guest) {
+                    if (data && data.guest) {
                         this.allReservations = this.mapReservation(data.guest.reservations)
                         if (this.activeName === 'all') {
                             this.getReservationList()

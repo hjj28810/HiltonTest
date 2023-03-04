@@ -5,10 +5,6 @@ var _clusterAsync = async function () {
     return await couchbase.connect(conf.couchbase_conn.host, {
         username: conf.couchbase_conn.username,
         password: conf.couchbase_conn.password,
-        // Sets a pre-configured profile called "wanDevelopment" to help avoid latency issues
-        // when accessing Capella from a different Wide Area Network
-        // or Availability Zone (e.g. your laptop).
-        // configProfile: 'wanDevelopment',
     })
 }
 
@@ -20,7 +16,6 @@ var _bucketAsync = async function (bucketName) {
 var _defaultCollectionAsync = async function (bucketName) {
     var bucket = await _bucketAsync(bucketName)
     return bucket.defaultCollection()
-    // return bucket.scope('tenant_agent_00').collection("")
 }
 
 var _getByIdAsync = async function (bucketName, id) {

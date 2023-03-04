@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-container>
-      <el-main>
+      <el-main v-loading="isLoading">
         <el-row :gutter="20">
           <el-input v-model="mobile" placeholder="手机号码" clearable></el-input>
         </el-row>
         <el-row :gutter="20">
-          <el-button type="primary" @click.native.prevent="handleLogin">Guest Logon</el-button>
+          <el-button type="primary" @click.native.prevent="handleLogin()">Guest Logon</el-button>
         </el-row>
         <el-row :gutter="20">
 
@@ -33,7 +33,8 @@ export default {
   },
   data() {
     return {
-      mobile: ''
+      mobile: '',
+      isLoading: false
     }
   },
   methods: {
@@ -47,13 +48,14 @@ export default {
           return
         }
       }
+      this.isLoading = true
       login(id).then(data => {
-        console.log(data)
-        if (data.token) {
+        if (data && data.token) {
           localStorage.setItem('user', id)
           localStorage.setItem('token', data.token)
           this.$router.push({ name: "mainView" })
         }
+        this.isLoading = false
       })
     },
   }

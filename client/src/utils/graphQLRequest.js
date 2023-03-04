@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getUUID } from "./index";
 var cryptoJS = require("crypto-js");
+import router from '@/router'
 // create an axios instance
 const service = axios.create({
     baseURL: "http://127.0.0.1:8081/graphql?", // url = base url + request url
@@ -35,6 +36,10 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         if (response.status === 200) {
+            if (response.data.code === 401) {
+                router.go(-1)
+                return
+            }
             // if (response.data.errors) {
             //     Message({
             //         message: response.data.errors || "Error",

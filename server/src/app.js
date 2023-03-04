@@ -15,7 +15,7 @@ app.use(expressjwt({
     secret: conf.jwtSecret,
     algorithms: ["HS256"]
     //,credentialsRequired: false //允许不验证jwt
-}).unless({ path: ["api/v1/login"] }))
+}).unless({ path: ["/api/v1/login"] }))
 
 var filter = async (req, res, next) => {
     // if (req.url === '/graphql') {
