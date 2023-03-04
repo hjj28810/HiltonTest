@@ -9,11 +9,11 @@
 运行 -- npm install (如有报错，因为墙的关系，多试几次即可)  
 client  运行cmd -- npm run serve -- host: http://localhost:8080  
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
-couchbase Capella  
-------------------host: couchbases://cb.4okihh3fqkurvdmu.cloud.couchbase.com  
-------------------username: admin  
-------------------password: Password@1  
-----------***`如使用local couchbase，则初始化三个bucket: guest reservation checkSum`***  
+couchbase capella  
+----host: couchbases://cb.4okihh3fqkurvdmu.cloud.couchbase.com  
+----username: admin  
+----password: Password@1  
+***`如使用local couchbase，则初始化三个bucket: guest reservation checkSum`***  
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show6.png)  
 ## 部署
 client cd ../hiltontest/client  
