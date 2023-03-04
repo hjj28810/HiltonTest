@@ -9,7 +9,7 @@
 运行 -- npm install (如有报错，因为墙的关系，多试几次即可)  
 client  运行cmd -- npm run serve -- host: http://localhost:8080  
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
-couchbase host: http://localhost:8091 username: Administrator password: 888666  
+couchbase host: http://localhost:8091 username: Administrator password: 888666（可在配置文件里更改）  
 ----------***`初始化三个bucket: guest reservation checkSum`***  
 ## 技术选型
 我本身并不是nodejs和纯前端开发，项目中要求的必要技术，大多是我第一次听说或使用，所以在满足所有必要的选项后，基于时间上的考虑，bouns的我就选了couchbase和docker，和其他一些我觉得好用方便的技术在里面，开发前，第一次接触的技术，我会先google，评估该技术的上手难易程度，等对所有技术看过一遍后，才开始编码，把相对方便容易的先写，整体逻辑框架先搭建完成，基本需求逻辑跑通，再加上其他的代码和功能，都是自己多次测试和验证的  
