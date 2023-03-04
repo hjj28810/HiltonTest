@@ -11,6 +11,7 @@ client  运行cmd -- npm run serve -- host: http://localhost:8080
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
 couchbase host: http://localhost:8091 username: Administrator password: 888666（可在配置文件里更改）  
 ----------***`初始化三个bucket: guest reservation checkSum`***  
+![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show6.png)  
 ## 部署
 client cd ../hiltontest/client  
 ```npm run build```  
