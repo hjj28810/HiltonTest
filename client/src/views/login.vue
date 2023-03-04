@@ -56,6 +56,8 @@ export default {
           this.$router.push({ name: "mainView" })
         }
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
       })
     },
   }

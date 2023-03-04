@@ -40,12 +40,8 @@ const loggingMiddleware = (req, res, next) => {
 app.use(loggingMiddleware);
 
 const bodyParser = require('body-parser');
-//设置完毕之后，会在req对象上面新增一个req.body的一个对象
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// const couchbase = require('./storage/couchbase')
-// couchbase.initAsync()
 
 const reservationRouter = require('./router/reservation.js')
 const guestRouter = require('./router/guest.js')

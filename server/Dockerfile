@@ -1,5 +1,7 @@
-FROM nginx:latest
+FROM node:16
+COPY package.json .
+RUN npm install
 COPY . .
 
-COPY client/nginx/default.conf /etc/nginx/nginx.conf
-EXPOSE 8080
+EXPOSE 8081
+CMD ["node","src/app.js"]
