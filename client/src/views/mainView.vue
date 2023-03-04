@@ -66,47 +66,50 @@
         </el-tabs>
 
         <el-dialog :title="titleMap[dialogStatus]" :visible.sync="dialogFormVisible" width="400px">
-            <el-form ref="dataForm" :rules="rules" status-icon :model="temp" label-position="right" label-width="80px"
-                :disabled="formDisabled">
-                <el-form-item label="来宾ID" prop="guest_id">
-                    <el-input v-model.trim="temp.guest_id" placeholder="来宾ID" disabled
-                        style="width: 200px;margin-left: -80px;" />
-                </el-form-item>
-                <el-form-item label="来宾姓名" prop="guest_name">
-                    <el-input v-model.trim="temp.guest_name" clearable placeholder="来宾姓名"
-                        style="width: 200px;margin-left: -80px;" />
-                </el-form-item>
-                <el-form-item label="联系方式" prop="guest_contact">
-                    <el-input v-model.trim="temp.guest_contact" clearable placeholder="联系方式"
-                        style="width: 200px;margin-left: -80px;" />
-                </el-form-item>
-                <el-form-item label="到店时间" prop="arrival_time">
-                    <el-date-picker v-model="temp.arrival_time" type="datetime" placeholder="到店时间"
-                        style="width: 200px;margin-left: -80px;" :picker-options="pickerOptions"
-                        format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="人数" prop="table_size">
-                    <el-select v-model="temp.table_size" placeholder="人数" clearable
-                        style="width: 150px;margin-right: 50px;margin-left: -80px;">
-                        <el-option v-for="item1 in sizeOptions" :key="item1.key" :label="item1.value" :value="item1.key" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="状态" prop="reservation_status" v-if="dialogStatus === 'edit'">
-                    <el-select v-model="temp.reservation_status" placeholder="状态" clearable
-                        style="width: 150px;margin-right: 50px;margin-left: -80px;">
-                        <el-option v-for="item1 in statusOptions" :key="item1.key" :label="item1.value"
-                            :disabled="item1.disabled" :value="item1.key" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="备注" prop="remark">
-                    <el-input v-model.trim="temp.remark" clearable placeholder="备注" style="width: 200px;margin-left: -80px;"
-                        :rows="4" type="textarea" />
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false" :loading="btnLoading">取消</el-button>
-                <el-button type="primary" :loading="btnLoading" v-if="!formDisabled"
-                    @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
+            <div v-loading="btnLoading">
+                <el-form ref="dataForm" :rules="rules" status-icon :model="temp" label-position="right" label-width="80px"
+                    :disabled="formDisabled">
+                    <el-form-item label="来宾ID" prop="guest_id">
+                        <el-input v-model.trim="temp.guest_id" placeholder="来宾ID" disabled
+                            style="width: 200px;margin-left: -80px;" />
+                    </el-form-item>
+                    <el-form-item label="来宾姓名" prop="guest_name">
+                        <el-input v-model.trim="temp.guest_name" clearable placeholder="来宾姓名"
+                            style="width: 200px;margin-left: -80px;" />
+                    </el-form-item>
+                    <el-form-item label="联系方式" prop="guest_contact">
+                        <el-input v-model.trim="temp.guest_contact" clearable placeholder="联系方式"
+                            style="width: 200px;margin-left: -80px;" />
+                    </el-form-item>
+                    <el-form-item label="到店时间" prop="arrival_time">
+                        <el-date-picker v-model="temp.arrival_time" type="datetime" placeholder="到店时间"
+                            style="width: 200px;margin-left: -80px;" :picker-options="pickerOptions"
+                            format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="人数" prop="table_size">
+                        <el-select v-model="temp.table_size" placeholder="人数" clearable
+                            style="width: 150px;margin-right: 50px;margin-left: -80px;">
+                            <el-option v-for="item1 in sizeOptions" :key="item1.key" :label="item1.value"
+                                :value="item1.key" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="状态" prop="reservation_status" v-if="dialogStatus === 'edit'">
+                        <el-select v-model="temp.reservation_status" placeholder="状态" clearable
+                            style="width: 150px;margin-right: 50px;margin-left: -80px;">
+                            <el-option v-for="item1 in statusOptions" :key="item1.key" :label="item1.value"
+                                :disabled="item1.disabled" :value="item1.key" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="备注" prop="remark">
+                        <el-input v-model.trim="temp.remark" clearable placeholder="备注"
+                            style="width: 200px;margin-left: -80px;" :rows="4" type="textarea" />
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取消</el-button>
+                    <el-button type="primary" v-if="!formDisabled"
+                        @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
+                </div>
             </div>
         </el-dialog>
     </div>
