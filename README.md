@@ -9,7 +9,7 @@
 运行 -- npm install (如有报错，因为墙的关系，多试几次即可)  
 client  运行cmd -- npm run serve -- host: http://localhost:8080  
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
-couchbase capella（不知道是不是试用版的原因，经常报code=995的错误，错误内容还是乱码，用local的就不会有过）  
+couchbase capella（不知道是不是试用版的原因，偶尔报code=995的错误，错误内容还是乱码，用local的就不会有，如碰到验签失败或接口错误请多试几次）  
 ----host: couchbases://cb.4okihh3fqkurvdmu.cloud.couchbase.com  
 ----username: admin  
 ----password: Password@1  
@@ -34,6 +34,7 @@ server cd ../hiltontest/server（couchbase需用capella配置）
 ***`Couchbase（必选项要求nosql，本来想用redis，后来看了下，这个也蛮方便的，正好学一下如何使用）`***  
 ***`Docker（现在大多数项目都部署docker，我本身公司项目也是部署docker和阿里云k8s）`***  
 ***`JWT（常规鉴权）`***  
+***`接口验签（防重放，保证接口每次请求的唯一性和安全性）`***  
 ## 项目结构
 --hiltontest  
 ----server（服务端代码）  
