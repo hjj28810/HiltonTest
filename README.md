@@ -1,16 +1,25 @@
 # Hilton Test (Sample Reservation System)
 ## 功能介绍
-一个简单的预订系统，可以用guest或者employee登录，guest根据选择日历来查看已预订的日程（查看自己所有的和所选日期所有的预订），也可新增修改（状态为来宾预订或取消）预订，employee可以查看所有guest预订（查看所有来宾和所选日期所有的预订），并修改（状态为餐厅确认或取消）预订，简化了部分逻辑，如分页等  
+一个简单的预订系统，可以用guest或者employee登录，guest根据选择日历来查看已预订的日程（查看自己所有的和所选日期的预订），也可新增修改（状态为来宾预订或取消）预订，employee可以查看所有guest预订（查看所有来宾和所选日期的预订），并修改（状态为餐厅确认或取消）预订   
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show3.png) 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show1.png) 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show2.png) 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show4.png)  
-环境要求: nodejs 14  
+环境要求: nodejs 14+  
 运行 -- npm install (如有报错，因为墙的关系，多试几次即可)  
 client  运行cmd -- npm run serve -- host: http://localhost:8080  
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
 couchbase host: http://localhost:8091 username: Administrator password: 888666（可在配置文件里更改）  
 ----------***`初始化三个bucket: guest reservation checkSum`***  
+## 部署
+client cd ../hiltontest/client  
+```npm run build```  
+```docker build -t hilton-client:1.0 .```  
+```docker run --name hilton-client-container -v /ect/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-client:1.0```  
+server cd ../hiltontest/server（服务端部署docker，couchbase需要一个外网地址）  
+```docker build -t hilton-client:1.0 .```  
+```docker run --name hilton-client-container -v /ect/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-client:1.0``` 
+![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show5.png) 
 ## 技术选型
 我本身并不是nodejs和纯前端开发，项目中要求的必要技术，大多是我第一次听说或使用，所以在满足所有必要的选项后，基于时间上的考虑，bouns的我就选了couchbase和docker，和其他一些我觉得好用方便的技术在里面，开发前，第一次接触的技术，我会先google，评估该技术的上手难易程度，等对所有技术看过一遍后，才开始编码，把相对方便容易的先写，整体逻辑框架先搭建完成，基本需求逻辑跑通，再加上其他的代码和功能，都是自己多次测试和验证的  
 ***`Express（nodejs web框架，容易上手，成熟度高，例子多）`***  
