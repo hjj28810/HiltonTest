@@ -20,7 +20,7 @@ client cd ../hiltontest/client
 ```npm run build```  
 ```docker build -t hilton-client:1.0 .```  
 ```docker run --name hilton-client-container -v /ect/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-client:1.0```  
-server cd ../hiltontest/server（服务端部署docker，couchbase需要一个外网地址）  
+server cd ../hiltontest/server  
 ```docker build -t hilton-client:1.0 .```  
 ```docker run --name hilton-client-container -v /ect/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-client:1.0``` 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show5.png) 
