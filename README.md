@@ -6,7 +6,7 @@
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show2.png) 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show4.png)  
 环境要求: nodejs 14  
-运行npm install  
+运行 -- npm install (如有报错，因为墙的关系，多试几次即可)  
 client  运行cmd -- npm run serve -- host: http://localhost:8080  
 server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081  
 couchbase host: http://localhost:8091 username: Administrator password: 888666
