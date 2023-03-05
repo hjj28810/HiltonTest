@@ -1,6 +1,6 @@
 # Hilton Test (Sample Reservation System)
 ## 功能介绍
-一个简单的预订系统，可以用guest或者employee登录，guest根据选择日历来查看已预订的日程（查看自己所有的和所选日期的预订），也可新增修改（状态为来宾预订或取消）预订，employee可以查看所有guest预订（查看所有来宾和所选日期的预订），并修改（状态为餐厅确认或取消）预订   
+一个简单的预订系统，可以用guest或者employee登录，guest根据选择日历来查看已预订的日程（查看自己所有的和所选日期的预订，可根据时间状态筛选），也可新增修改（状态为来宾预订或取消）预订，employee可以查看所有guest预订（查看所有来宾和所选日期的预订，可根据时间状态筛选），并修改（状态为餐厅确认或取消）预订   
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show3.png) 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show1.png) 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show2.png) 
