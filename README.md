@@ -13,7 +13,7 @@ couchbase capella（不知道是不是试用版的原因，偶尔报code=995的�
 ----host: couchbases://cb.4okihh3fqkurvdmu.cloud.couchbase.com  
 ----username: admin  
 ----password: Password@1  
-***`如使用local couchbase，则初始化三个bucket: guest reservation checkSum`***  
+***`如使用local couchbase，则初始化三个bucket: guest reservation checkSum 并创建index以便启用N1Ql`***  
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show6.png)  
 ## 部署
 client cd ../hiltontest/client  
