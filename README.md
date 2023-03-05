@@ -7,8 +7,8 @@
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show4.png)  
 环境要求: nodejs 14+  
 运行 -- npm install (如有报错，因为墙的关系，多试几次即可)  
-client  运行cmd -- npm run serve -- host: http://localhost:8080  
-server  运行cmd -- nodemon src/app.js -- host: http://localhost:8081 unit-test --npm test src/test/app.test.js  
+client  运行cmd```npm run serve```host: http://localhost:8080  
+server  运行cmd```nodemon src/app.js```host: http://localhost:8081 unit-test```npm test src/test/app.test.js```  
 couchbase capella（不知道是不是试用版的原因，偶尔报code=995的错误，错误内容还是乱码，用local的就不会有，如碰到验签失败或接口错误请多试几次）  
 ----host: couchbases://cb.4okihh3fqkurvdmu.cloud.couchbase.com  
 ----username: admin  
