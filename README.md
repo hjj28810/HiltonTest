@@ -29,7 +29,7 @@ server cd ../hiltontest/server（couchbase需用capella配置）
 ***`Express（nodejs web框架，容易上手，成熟度高，例子多）`***  
 ***`Log4js（著名的日志框架，我.net和golang开发也用的log4net和log4go）`***  
 ***`GraphQL.js（GraphQL原生库，使用方便）`***  
-***`Supertest（nodejs unit-test库，成熟高，例子多）`***  
+***`Supertest&Mocha（nodejs unit-test库，成熟高，例子多）`***  
 ***`ElementUI（前端vue框架，方便好用）`***  
 ***`Couchbase（必选项要求nosql，本来想用redis，后来看了下，这个也蛮方便的，正好学一下如何使用）`***  
 ***`Docker（现在大多数项目都部署docker，我本身公司项目也是部署docker和阿里云k8s）`***  
