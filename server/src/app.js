@@ -11,6 +11,13 @@ const conf = require('./config/conf.json')
 var cors = require('cors')
 app.use(cors())
 
+const couchbase = require('./storage/couchbase')
+couchbase.initAsync()
+    .catch(err => {
+        log.errorLog(err)
+        console.log(err)
+    })
+
 app.use(expressjwt({
     secret: conf.jwtSecret,
     algorithms: ["HS256"]
@@ -64,7 +71,6 @@ app.use((err, req, res, next) => {
     }
     return res.json({ code: 500, message: "服务器异常:" + err });
 });
-
 
 app.listen(8081, () => {
     console.log('http://127.0.0.1 listening on port 8081')

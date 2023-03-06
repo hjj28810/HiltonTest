@@ -1,57 +1,48 @@
 var couchbase = require('couchbase')
 const conf = require('../config/conf.json')
+class Couchbase {
 
-var _clusterAsync = async function () {
-    return await couchbase.connect(conf.couchbase_conn.host, {
-        username: conf.couchbase_conn.username,
-        password: conf.couchbase_conn.password,
-        configProfile: 'wanDevelopment',
-    })
+    cluster = {}
+    async initAsync() {
+        this.cluster = await couchbase.connect(conf.couchbase_conn.host, {
+            username: conf.couchbase_conn.username,
+            password: conf.couchbase_conn.password,
+            configProfile: 'wanDevelopment',
+        })
+    }
+
+    async bucketAsync(bucketName) {
+        return this.cluster.bucket(bucketName)
+    }
+
+    async defaultCollectionAsync(bucketName) {
+        var bucket = await this.bucketAsync(bucketName)
+        return bucket.defaultCollection()
+    }
+
+    async getByIdAsync(bucketName, id) {
+        var collection = await this.defaultCollectionAsync(bucketName)
+        return (await collection.get(id)).content
+    }
+
+    async getListAsync(bucketName, whereSql, parameters) {
+        return await this.cluster.query(`SELECT * FROM \`${bucketName}\` WHERE 1 = 1${whereSql};`, { parameters })
+    }
+
+    async existsAsync(bucketName, id) {
+        var collection = await this.defaultCollectionAsync(bucketName)
+        return (await collection.exists(id)).exists
+    }
+
+    async addAsync(bucketName, id, data, options) {
+        var collection = await this.defaultCollectionAsync(bucketName)
+        return await collection.insert(id, data, options)
+    }
+
+    async updateAsync(bucketName, id, data) {
+        var collection = await this.defaultCollectionAsync(bucketName)
+        return await collection.replace(id, data)
+    }
 }
 
-var _bucketAsync = async function (bucketName) {
-    var cluster = await _clusterAsync()
-    return cluster.bucket(bucketName)
-}
-
-var _defaultCollectionAsync = async function (bucketName) {
-    var bucket = await _bucketAsync(bucketName)
-    return bucket.defaultCollection()
-}
-
-var _getByIdAsync = async function (bucketName, id) {
-    var collection = await _defaultCollectionAsync(bucketName)
-    return (await collection.get(id)).content
-}
-
-var _getListAsync = async function (bucketName, whereSql, parameters) {
-    var cluster = await _clusterAsync()
-    return await cluster.query(`SELECT * FROM \`${bucketName}\` WHERE 1 = 1${whereSql};`, { parameters })
-}
-
-var _existsAsync = async function (bucketName, id) {
-    var collection = await _defaultCollectionAsync(bucketName)
-    return (await collection.exists(id)).exists
-}
-
-var _addAsync = async function (bucketName, id, data, options) {
-    var collection = await _defaultCollectionAsync(bucketName)
-    return await collection.insert(id, data, options)
-}
-
-var _updateAsync = async function (bucketName, id, data) {
-    var collection = await _defaultCollectionAsync(bucketName)
-    return await collection.replace(id, data)
-}
-
-module.exports
-    = {
-    clusterAsync: _clusterAsync,
-    bucketAsync: _bucketAsync,
-    defaultCollectionAsync: _defaultCollectionAsync,
-    getByIdAsync: _getByIdAsync,
-    addAsync: _addAsync,
-    getListAsync: _getListAsync,
-    updateAsync: _updateAsync,
-    existsAsync: _existsAsync
-}
+module.exports = new Couchbase()
