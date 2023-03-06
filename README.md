@@ -21,8 +21,8 @@ client cd ../hiltontest/client
 ```docker build -t hilton-client:1.0 .```  
 ```docker run --name hilton-client-container -v /etc/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-client:1.0```  
 server cd ../hiltontest/server（couchbase需用capella配置）  
-```docker build -t hilton-client:1.0 .```  
-```docker run --name hilton-client-container -v /etc/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-client:1.0``` 
+```docker build -t hilton-server:1.0 .```  
+```docker run --name hilton-server-container -v /etc/localtime:/etc/localtime:ro -p 0.0.0.0:8080:8080 -d hilton-server:1.0``` 
 ![image](https://github.com/hjj28810/HiltonTest/blob/main/assets/show5.png) 
 ## 技术选型
 我本身并不是nodejs和纯前端开发，项目中要求的必要技术，大多是我第一次听说或使用，所以在满足所有必要的选项后，基于时间上的考虑，bouns的我就选了couchbase和docker，和其他一些我觉得好用方便的技术在里面，开发前，第一次接触的技术，我会先google，评估该技术的上手难易程度，等对所有技术看过一遍后，才开始编码，把相对方便容易的先写，整体逻辑框架先搭建完成，基本需求逻辑跑通，再加上其他的代码和功能，都是自己多次测试和验证的  
