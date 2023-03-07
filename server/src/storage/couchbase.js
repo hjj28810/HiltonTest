@@ -9,6 +9,7 @@ class Couchbase {
             password: conf.couchbase_conn.password,
             configProfile: 'wanDevelopment',
         })
+        console.log('couchbase initialized')
     }
 
     async bucketAsync(bucketName) {
