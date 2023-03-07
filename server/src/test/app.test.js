@@ -16,6 +16,7 @@ describe('app js test', function () {
                 .set('Nonce', nonce)
                 .set('CurTime', curTime)
                 .set('CheckSum', cryptoJS.SHA1(`6f2ad63f0ef2${nonce}${curTime}`).toString(cryptoJS.enc.Hex))
+                .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkVtcGxveWVlIiwiaWF0IjoxNjc4MTUyNDk0LCJleHAiOjE2NzgxNTk2OTR9.SmQQc1EaS_hZBRITu9WXgS3QiOn0MikbYY0_iGzQeLQ')
                 .expect(200)
                 .end(function (err, res) {
                     should.not.exist(err);
@@ -36,6 +37,7 @@ describe('app js test', function () {
                 .set('Nonce', nonce)
                 .set('CurTime', curTime)
                 .set('CheckSum', cryptoJS.SHA1(`6f2ad63f0ef2${nonce}${curTime}`).toString(cryptoJS.enc.Hex))
+                .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkVtcGxveWVlIiwiaWF0IjoxNjc4MTUyNDk0LCJleHAiOjE2NzgxNTk2OTR9.SmQQc1EaS_hZBRITu9WXgS3QiOn0MikbYY0_iGzQeLQ')
                 .expect(200)
                 .end(function (err, res) {
                     should.not.exist(err);

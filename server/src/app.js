@@ -7,73 +7,75 @@ const gqlHTTP = require('express-graphql')
 const log = require('./util/log')
 const { expressjwt } = require("express-jwt")
 const conf = require('./config/conf.json')
-
 var cors = require('cors')
-app.use(cors())
-
 const couchbase = require('./storage/couchbase')
-couchbase.initAsync()
-    .catch(err => {
-        log.errorLog(err)
-        console.log(err)
-    })
-
-app.use(expressjwt({
-    secret: conf.jwtSecret,
-    algorithms: ["HS256"]
-    //,credentialsRequired: false //允许不验证jwt
-}).unless({ path: ["/api/v1/login"] }))
-
-var filter = async (req, res, next) => {
-    // if (req.url === '/graphql') {
-    //     next()
-    //     return
-    // }//如果在浏览器中使用graphQL解注
-    var isCheck = await util.checkSumAsync(req.get('nonce'), req.get('curTime'), req.get('checkSum'))
-    if (!isCheck)
-        return res.json({ code: 500, message: "验签失败" });
-    else
-        next()
-}
-app.use(filter);
-
-const loggingMiddleware = (req, res, next) => {
-    log.infoLog(req.url)
-    log.infoLog(req.params)
-    log.infoLog(req.query)
-    log.infoLog(req.body)
-    next();
-}
-app.use(loggingMiddleware);
-
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
 
 const reservationRouter = require('./router/reservation.js')
 const guestRouter = require('./router/guest.js')
 const sessionRouter = require('./router/session.js')
-app.use('/api/v1', reservationRouter)
-app.use('/api/v1', guestRouter)
-app.use('/api/v1', sessionRouter)
 
-app.use('/graphql', gqlHTTP.graphqlHTTP({
-    schema: Schema,
-    graphiql: true,
-}));
+const mainAsync = async () => {
 
-app.use((err, req, res, next) => {
-    log.errorLog(err)
-    if (err.name == "UnauthorizedError") {
-        return res.json({ code: 401, message: "无效的token" });
-    } else {
-        next(err);
+    app.use(cors())
+
+    await couchbase.initAsync()
+
+    app.use(expressjwt({
+        secret: conf.jwtSecret,
+        algorithms: ["HS256"]
+        // , credentialsRequired: false //允许不验证jwt
+    }).unless({ path: ["/api/v1/login"] }))
+
+    var filter = async (req, res, next) => {
+        // if (req.url === '/graphql') {
+        //     next()
+        //     return
+        // }//如果在浏览器中使用graphQL解注
+        var isCheck = await util.checkSumAsync(req.get('nonce'), req.get('curTime'), req.get('checkSum'))
+        if (!isCheck)
+            return res.json({ code: 500, message: "验签失败" });
+        else
+            next()
     }
-    return res.json({ code: 500, message: "服务器异常:" + err });
-});
+    app.use(filter);
 
-app.listen(8081, () => {
-    console.log('http://127.0.0.1 listening on port 8081')
-})
+    const loggingMiddleware = (req, res, next) => {
+        log.infoLog(req.url)
+        log.infoLog(req.params)
+        log.infoLog(req.query)
+        log.infoLog(req.body)
+        next();
+    }
+    app.use(loggingMiddleware);
+
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }))
+
+    app.use('/api/v1', reservationRouter)
+    app.use('/api/v1', guestRouter)
+    app.use('/api/v1', sessionRouter)
+
+    app.use('/graphql', gqlHTTP.graphqlHTTP({
+        schema: Schema,
+        graphiql: true,
+    }));
+
+    app.use((err, req, res, next) => {
+        log.errorLog(err)
+        if (err.name == "UnauthorizedError") {
+            return res.json({ code: 401, message: "无效的token" });
+        } else {
+            next(err);
+        }
+        return res.json({ code: 500, message: "服务器异常:" + err });
+    });
+
+    app.listen(8081, () => {
+        console.log('http://127.0.0.1 listening on port 8081')
+    })
+}
+
+mainAsync().catch(() => { })
 
 module.exports = app;
