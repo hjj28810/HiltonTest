@@ -26,7 +26,7 @@ describe('app js test', function () {
                         token = res.body.data.token
                         done()
                     });
-            }, 2000);
+            }, 3000);
         });
     });
 
